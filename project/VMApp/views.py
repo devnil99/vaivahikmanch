@@ -366,10 +366,10 @@ class LoginAPIView(APIView):
         role_param = str(request.data.get("Role") or request.data.get("role", "")).strip().lower()
         if role_param and user.Role:
             user_role = user.Role.lower()
-            # Allow superadmin in admin login
+            # Allow superadmin, superuser or staff in admin login
             role_matches = (
                 user_role == role_param or
-                (role_param == "admin" and user_role in ["admin", "superadmin"])
+                (role_param == "admin" and (user_role in ["admin", "superadmin"] or user.is_superuser or user.is_staff))
             )
             if not role_matches:
                 return Response(
