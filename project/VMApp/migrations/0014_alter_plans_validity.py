@@ -10,9 +10,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='plans',
-            name='Validity',
-            field=models.IntegerField(blank=True, default=30, help_text='Validity in number of days (e.g. 10, 30, 90)', null=True),
+        migrations.RunSQL(
+            sql='ALTER TABLE "VMApp_plans" DROP COLUMN IF EXISTS "Validity"; ALTER TABLE "VMApp_plans" ADD COLUMN "Validity" integer DEFAULT 30;',
+            reverse_sql='ALTER TABLE "VMApp_plans" DROP COLUMN IF EXISTS "Validity"; ALTER TABLE "VMApp_plans" ADD COLUMN "Validity" date;',
+            state_operations=[
+                migrations.AlterField(
+                    model_name='plans',
+                    name='Validity',
+                    field=models.IntegerField(blank=True, default=30, help_text='Validity in number of days (e.g. 10, 30, 90)', null=True),
+                ),
+            ]
         ),
     ]
