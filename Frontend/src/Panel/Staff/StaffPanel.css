@@ -1,0 +1,1846 @@
+/* ==========================================================================
+   VAIVAHEEK MANCH - STAFF PORTAL PROFESSIONAL DESIGN SYSTEM
+   Matches UserPanel Layout Paradigm (Desktop Sidebar + Mobile Header + Mobile Bottom Nav)
+   Theme: Executive Emerald & Warm Gold CRM System
+   Mobile Phone Application Friendly View
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=Outfit:wght@500;600;700;800&display=swap');
+
+:root {
+  --stp-primary: #059669;
+  --stp-primary-dark: #047857;
+  --stp-primary-deep: #064e3b;
+  --stp-primary-light: #d1fae5;
+  --stp-primary-bg: #ecfdf5;
+  --stp-gold: #d97706;
+  --stp-gold-light: #fef3c7;
+  --stp-surface: #ffffff;
+  --stp-bg: #f8fafc;
+  --stp-text: #0f172a;
+  --stp-text-muted: #64748b;
+  --stp-border: rgba(6, 78, 59, 0.14);
+  --stp-shadow-sm: 0 4px 14px rgba(6, 78, 59, 0.05);
+  --stp-shadow-md: 0 10px 28px rgba(6, 78, 59, 0.08);
+  --stp-radius-lg: 16px;
+  --stp-radius-xl: 22px;
+}
+
+/* ==========================================================================
+   1. MAIN LAYOUT CONTAINER (Same as UserPanel)
+   ========================================================================== */
+.stp-container {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--stp-bg);
+  position: relative;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  color: var(--stp-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   2. DESKTOP SIDEBAR (Matches UserPanel)
+   ========================================================================== */
+.stp-sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: #ffffff;
+  border-right: 1.5px solid var(--stp-border);
+  box-shadow: 4px 0 24px rgba(6, 78, 59, 0.04);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: 50;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sidebar Header / Brand */
+.stp-sidebar-header {
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid #d1fae5;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.stp-brand-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #059669, #064e3b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 22px;
+  box-shadow: 0 6px 16px rgba(6, 78, 59, 0.3);
+  flex-shrink: 0;
+}
+
+.stp-brand-info h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--stp-primary-deep);
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+
+.stp-brand-info p {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: var(--stp-text-muted);
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+/* Sidebar Staff Profile Badge */
+.stp-sidebar-user {
+  margin: 8px 12px 4px;
+  padding: 9px 12px;
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border-radius: 14px;
+  border: 1px solid #a7f3d0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.stp-user-avatar-wrap {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(6, 78, 59, 0.2);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.stp-user-avatar-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.stp-user-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.stp-user-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--stp-primary-deep);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stp-user-caste {
+  font-size: 11px;
+  color: var(--stp-primary-dark);
+  font-weight: 700;
+  margin-top: 1px;
+}
+
+/* Sidebar Navigation Items — Independently Scrollable */
+.stp-nav-list {
+  padding: 4px 10px 8px;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overscroll-behavior: contain;
+}
+
+.stp-nav-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.stp-nav-list::-webkit-scrollbar-track {
+  background: rgba(6, 78, 59, 0.02);
+  border-radius: 6px;
+}
+
+.stp-nav-list::-webkit-scrollbar-thumb {
+  background: #6ee7b7;
+  border-radius: 6px;
+}
+
+.stp-nav-list::-webkit-scrollbar-thumb:hover {
+  background: #059669;
+}
+
+.stp-nav-category {
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #94a3b8;
+  padding: 8px 10px 3px;
+}
+
+.stp-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.stp-nav-item:hover {
+  background: #ecfdf5;
+  color: var(--stp-primary);
+  transform: translateX(3px);
+}
+
+.stp-nav-item.active {
+  background: linear-gradient(135deg, #059669, #064e3b);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(6, 78, 59, 0.25);
+}
+
+.stp-nav-item.active .stp-nav-badge {
+  background: #ffffff;
+  color: var(--stp-primary-dark);
+}
+
+.stp-nav-icon {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stp-nav-text {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.stp-nav-badge {
+  background: #d1fae5;
+  color: var(--stp-primary-dark);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* Sidebar Footer — Always Pinned at Bottom */
+.stp-sidebar-footer {
+  padding: 10px 12px 12px;
+  border-top: 1px solid #d1fae5;
+  background: #f9fdfb;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+.stp-home-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1fae5;
+  background: #ecfdf5;
+  color: #065f46;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.stp-home-btn:hover {
+  background: #d1fae5;
+  color: #047857;
+  transform: translateY(-1px);
+}
+
+
+/* ==========================================================================
+/* ==========================================================================
+   3. MOBILE APP HEADER (Matches ServicePanel Architecture)
+   ========================================================================== */
+.stp-mobile-header {
+  display: none;
+  background: linear-gradient(135deg, #059669 0%, #064e3b 100%) !important;
+  color: #ffffff !important;
+  padding: 12px 16px;
+  padding-top: max(12px, env(safe-area-inset-top));
+  align-items: center;
+  justify-content: space-between;
+  position: sticky !important;
+  top: 0 !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  box-sizing: border-box !important;
+  z-index: 990 !important;
+  box-shadow: 0 4px 16px rgba(6, 78, 59, 0.25) !important;
+}
+
+.stp-mobile-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.stp-mobile-logo-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.stp-mobile-title {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  line-height: 1.15;
+  color: #ffffff !important;
+  margin: 0;
+}
+
+.stp-mobile-subtitle {
+  font-size: 10px;
+  color: #a7f3d0 !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.stp-mobile-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stp-mobile-wallet-btn {
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  padding: 0 10px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.stp-mobile-wallet-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.stp-mobile-menu-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.stp-mobile-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.stp-mobile-menu-dot {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 7px;
+  height: 7px;
+  background: #ef4444;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+}
+
+/* ==========================================================================
+   4. MAIN CONTENT AREA (Dedicated Staff Layout)
+   ========================================================================== */
+.stp-main {
+  flex: 1;
+  min-width: 0;
+  padding: 24px 32px 80px;
+  
+}
+
+/* Top Hero / Greeting Banner */
+.stp-top-banner {
+  background: linear-gradient(135deg, #022c22 0%, #064e3b 50%, #065f46 100%);
+  color: #ffffff;
+  border-radius: var(--stp-radius-xl);
+  padding: 22px 26px;
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(6, 78, 59, 0.15);
+}
+
+.stp-top-banner-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.stp-top-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.stp-top-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+  background: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.stp-top-greeting {
+  font-size: 12.5px;
+  color: #a7f3d0;
+  font-weight: 700;
+}
+
+.stp-top-name {
+  margin: 2px 0 4px;
+  font-size: 20px;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stp-top-sub-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.stp-top-sub-pill {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 2px 9px;
+  font-size: 11px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.stp-top-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stp-top-stat-card {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  padding: 8px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stp-top-stat-card:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.stp-top-stat-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.stp-top-stat-lbl {
+  font-size: 10.5px;
+  color: #a7f3d0;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Referral Code Share Strip */
+.stp-ref-share-strip {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.stp-ref-code-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 5px 12px;
+  border-radius: 10px;
+  border: 1px dashed rgba(255, 255, 255, 0.35);
+}
+
+.stp-ref-code-label {
+  font-size: 11px;
+  color: #a7f3d0;
+  font-weight: 700;
+}
+
+.stp-ref-code-text {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #fef08a;
+  font-family: monospace;
+}
+
+.stp-ref-share-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stp-share-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.stp-share-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
+.stp-share-btn-wa {
+  background: #25d366;
+  border: 1px solid #20ba5a;
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.stp-share-btn-wa:hover {
+  background: #1eb855;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   5. COMPONENT CARDS & SECTIONS
+   ========================================================================== */
+.stp-card {
+  background: #ffffff;
+  border-radius: var(--stp-radius-xl);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+  padding: 22px 26px;
+  margin-bottom: 22px;
+}
+
+.stp-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px solid #f1f5f9;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.stp-card-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.stp-card-desc {
+  margin: 3px 0 0;
+  font-size: 12.5px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.stp-section-tag {
+  background: #ecfdf5;
+  color: #065f46;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  border-left: 3.5px solid #059669;
+  letter-spacing: 0.3px;
+}
+
+/* ==========================================================================
+   6. STEPPED OTP REGISTRATION (Matches UserRegister Flow)
+   ========================================================================== */
+.stp-otp-step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+.stp-step-indicators {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stp-step-dot {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12.5px;
+  font-weight: 800;
+  border: 2px solid #cbd5e1;
+  color: #64748b;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.stp-step-dot.active {
+  border-color: #059669;
+  background: #059669;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+.stp-step-dot.completed {
+  border-color: #10b981;
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.stp-step-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+/* 6-Digit OTP Box Grid */
+.stp-otp-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0 18px;
+}
+
+.stp-otp-input {
+  width: 48px;
+  height: 52px;
+  border-radius: 12px;
+  border: 2px solid #cbd5e1;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  background: #f8fafc;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.stp-otp-input:focus {
+  border-color: #059669;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.18);
+}
+
+/* ==========================================================================
+   7. WITHDRAWAL & WALLET INTERFACE
+   ========================================================================== */
+.stp-wallet-hero {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 1.5px solid #a7f3d0;
+  border-radius: var(--stp-radius-xl);
+  padding: 22px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 18px rgba(6, 78, 59, 0.06);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.stp-wallet-balance-num {
+  font-size: 36px;
+  font-weight: 900;
+  font-family: 'Outfit', sans-serif;
+  color: #064e3b;
+  line-height: 1.1;
+}
+
+.stp-wallet-balance-lbl {
+  font-size: 12px;
+  font-weight: 800;
+  color: #047857;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-top: 4px;
+}
+
+.stp-quick-chip-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0 14px;
+}
+
+.stp-quick-chip {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.stp-quick-chip:hover {
+  border-color: #059669;
+  color: #059669;
+  background: #ecfdf5;
+}
+
+.stp-quick-chip.active {
+  border-color: #059669;
+  background: #059669;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   8. HELP & SUPPORT CARDS (Using Help Model)
+   ========================================================================== */
+.stp-ticket-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease;
+}
+
+.stp-ticket-card:hover {
+  transform: translateY(-1px);
+  border-color: #cbd5e1;
+}
+
+.stp-ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.stp-ticket-q {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.stp-ticket-admin-reply {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #065f46;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   9. BUTTONS & UI CONTROLS
+   ========================================================================== */
+.stp-btn-primary {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.28) !important;
+  height: 40px !important;
+  padding: 0 20px !important;
+}
+
+.stp-btn-primary:hover {
+  background: linear-gradient(135deg, #047857 0%, #064e3b 100%) !important;
+  transform: translateY(-1px);
+}
+
+.stp-btn-gold {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.28) !important;
+  height: 40px !important;
+  padding: 0 20px !important;
+}
+
+.stp-btn-gold:hover {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   10. MOBILE BOTTOM NAVIGATION DOCK (Phone Application View)
+   ========================================================================== */
+.stp-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1.5px solid rgba(6, 78, 59, 0.12);
+  box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 4px;
+  padding-bottom: max(4px, env(safe-area-inset-bottom));
+}
+
+.stp-bottom-nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 52px;
+  color: #64748b;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  border-radius: 14px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  touch-action: manipulation;
+  margin: 0 2px;
+}
+
+.stp-bottom-nav-btn:active {
+  transform: scale(0.92);
+}
+
+.stp-bottom-nav-btn.active {
+  color: #059669;
+  background: #ecfdf5;
+}
+
+.stp-bottom-nav-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+  background: #059669;
+}
+
+.stp-bottom-icon {
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stp-bottom-badge {
+  position: absolute;
+  top: 4px;
+  right: 18%;
+  background: #059669;
+  color: #ffffff;
+  font-size: 9.5px;
+  font-weight: 800;
+  min-width: 17px;
+  height: 17px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 1.5px solid #ffffff;
+}
+
+/* ==========================================================================
+   11. RESPONSIVE BREAKPOINTS (Matches ServicePanel & UserPanel)
+   ========================================================================== */
+@media (max-width: 992px) {
+  .stp-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    min-height: 100vh !important;
+    box-sizing: border-box !important;
+    overflow-x: clip !important;
+    position: relative !important;
+  }
+
+  .stp-sidebar {
+    display: none !important;
+  }
+
+  .stp-mobile-header {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 990 !important;
+  }
+
+  .stp-bottom-nav {
+    display: flex !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    z-index: 1001 !important;
+  }
+
+  .stp-main {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow-x: clip !important;
+    padding: 14px 14px calc(85px + env(safe-area-inset-bottom, 16px)) !important;
+  }
+
+  .stp-top-banner {
+    padding: 16px 18px;
+    border-radius: 16px;
+  }
+  .stp-card {
+    padding: 16px 16px;
+    border-radius: 16px;
+  }
+  .stp-wallet-hero {
+    padding: 16px 18px;
+  }
+  .stp-otp-input {
+    width: 44px;
+    height: 48px;
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 993px) {
+  .stp-container {
+    display: flex !important;
+    flex-direction: row !important;
+    min-height: 100vh !important;
+    width: 100% !important;
+  }
+
+  .stp-sidebar {
+    display: flex !important;
+    width: 280px !important;
+    min-width: 280px !important;
+    position: sticky !important;
+    top: 0 !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+  }
+
+  .stp-mobile-header {
+    display: none !important;
+  }
+
+  .stp-bottom-nav {
+    display: none !important;
+  }
+
+  .stp-main {
+    flex: 1 1 auto !important;
+    width: calc(100% - 280px) !important;
+    box-sizing: border-box !important;
+    padding: 24px 32px 60px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .stp-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    min-height: 100vh !important;
+    box-sizing: border-box !important;
+    overflow-x: clip !important;
+    position: relative !important;
+  }
+
+  .stp-mobile-header {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 990 !important;
+    padding: 10px 12px !important;
+    padding-top: max(10px, env(safe-area-inset-top)) !important;
+  }
+
+  .stp-main {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow-x: clip !important;
+    padding: 10px 10px calc(85px + env(safe-area-inset-bottom, 16px)) !important;
+  }
+
+  .stp-top-banner-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .stp-top-stats {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .stp-top-stat-card {
+    flex: 1;
+    min-width: 75px;
+    padding: 6px 8px;
+  }
+  .stp-top-stat-val {
+    font-size: 16px;
+  }
+  .stp-otp-boxes {
+    gap: 6px;
+  }
+  .stp-otp-input {
+    width: 38px;
+    height: 44px;
+    font-size: 18px;
+  }
+  .stp-ticket-card {
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
+    margin-bottom: 10px !important;
+  }
+  .stp-ticket-header {
+    gap: 6px !important;
+    margin-bottom: 6px !important;
+  }
+  .stp-ticket-q {
+    font-size: 13.5px !important;
+    line-height: 1.45 !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+  .stp-ticket-admin-reply {
+    padding: 10px 12px !important;
+    font-size: 12.5px !important;
+    border-radius: 8px !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+  .stp-help-submit-btn {
+    width: 100% !important;
+    height: 42px !important;
+    font-size: 14px !important;
+  }
+  .stp-card-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+  .stp-card {
+    padding: 14px 12px !important;
+    border-radius: 14px !important;
+  }
+}
+
+/* ==========================================================================
+   12. DASHBOARD QUICK ACTIONS & PROFILE VIEW STYLES
+   ========================================================================== */
+.stp-action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.stp-action-card {
+  background: #ffffff;
+  border: 1.5px solid var(--stp-border);
+  border-radius: var(--stp-radius-lg);
+  padding: 18px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--stp-shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.stp-action-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--stp-primary);
+  box-shadow: var(--stp-shadow-md);
+}
+
+.stp-action-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.stp-action-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--stp-text);
+  margin-bottom: 2px;
+}
+
+.stp-action-desc {
+  font-size: 12px;
+  color: var(--stp-text-muted);
+  line-height: 1.35;
+}
+
+/* Profile Detail View Styles */
+.stp-profile-view-box {
+  background: #ffffff;
+  border: 1.5px solid var(--stp-border);
+  border-radius: var(--stp-radius-lg);
+  padding: 22px 24px;
+  margin-bottom: 20px;
+}
+
+.stp-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.stp-detail-item {
+  background: #f8fafc;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.stp-detail-lbl {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.stp-detail-val {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+.stp-doc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.stp-doc-pill:hover {
+  background: #d1fae5;
+  color: #064e3b;
+}
+
+/* User Search & Filter Chips */
+.stp-filter-chips-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 6px 2px 12px;
+  scrollbar-width: thin;
+}
+.stp-filter-chips-bar::-webkit-scrollbar {
+  height: 4px;
+}
+.stp-filter-chips-bar::-webkit-scrollbar-thumb {
+  background: #a7f3d0;
+  border-radius: 4px;
+}
+.stp-filter-chip {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.stp-filter-chip:hover {
+  background: #ecfdf5;
+  border-color: #059669;
+  color: #059669;
+}
+.stp-filter-chip.active {
+  background: #059669;
+  border-color: #059669;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+/* ==========================================================================
+   Candidate & Member Card Styling (Staff Panel)
+   ========================================================================== */
+.stp-member-card,
+.stp-cand-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 14px 18px;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.stp-member-card:hover,
+.stp-cand-card:hover {
+  border-color: #10b981;
+  box-shadow: 0 8px 24px rgba(6, 78, 59, 0.08);
+  transform: translateY(-2px);
+}
+
+.stp-member-card-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.stp-member-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.stp-member-avatar.female {
+  background: #fce7f3;
+  color: #db2777;
+  border: 2px solid #fbcfe8;
+}
+
+.stp-member-avatar.male {
+  background: #e0f2fe;
+  color: #0284c7;
+  border: 2px solid #bae6fd;
+}
+
+.stp-member-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stp-member-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.stp-member-header-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stp-member-name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.stp-member-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.stp-chip {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stp-chip-protected {
+  background: #fff1f2;
+  color: #e11d48;
+  border: 1px solid #fecdd3;
+  font-size: 10.5px;
+}
+
+.stp-member-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.stp-btn-view-biodata {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  border-color: #059669 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25) !important;
+}
+
+/* ==========================================================================
+   Candidate Biodata View Modal Styling (Staff Panel)
+   ========================================================================== */
+.stp-biodata-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stp-biodata-alert-warn {
+  background: #fffbeb;
+  border: 1.5px solid #fde68a;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stp-biodata-profile-head {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1.5px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+
+.stp-biodata-avatar-wrap {
+  flex-shrink: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.stp-biodata-avatar-placeholder {
+  width: 92px;
+  height: 92px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 900;
+}
+
+.stp-biodata-avatar-placeholder.female {
+  background: #fce7f3;
+  color: #db2777;
+  border: 2px solid #fbcfe8;
+}
+
+.stp-biodata-avatar-placeholder.male {
+  background: #e0f2fe;
+  color: #0284c7;
+  border: 2px solid #bae6fd;
+}
+
+.stp-biodata-info-wrap {
+  flex: 1;
+  min-width: 220px;
+}
+
+.stp-biodata-candidate-name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.stp-biodata-subtext {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #059669;
+  margin-top: 4px;
+}
+
+.stp-biodata-location {
+  font-size: 12.5px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.stp-confidential-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #d97706;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  padding: 3px 10px;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
+.stp-biodata-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.stp-biodata-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+}
+
+.stp-biodata-card-title {
+  margin: 0 0 12px;
+  color: #0f172a;
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px dashed #e2e8f0;
+  padding-bottom: 8px;
+}
+
+.stp-biodata-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px 18px;
+  font-size: 13px;
+}
+
+.stp-biodata-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stp-biodata-label {
+  font-size: 11.5px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.stp-biodata-val {
+  font-size: 13px;
+  color: #1e293b;
+  font-weight: 700;
+}
+
+.stp-biodata-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1.5px solid #e2e8f0;
+  margin-top: 8px;
+}
+
+/* Print biodata styling for Staff Panel */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  .stp-printable-biodata,
+  .stp-printable-biodata * {
+    visibility: visible !important;
+  }
+  .stp-printable-biodata {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    padding: 20px !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: 2px solid #059669 !important;
+    background: #ffffff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+
+/* Side Menu Mobile Drawer Styles */
+.stp-drawer-close-btn {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 48px;
+  border-radius: 10px;
+  background: #ecfdf5;
+  border: 1.5px solid #a7f3d0;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1002;
+  box-shadow: 0 4px 14px rgba(6, 78, 59, 0.12);
+  transition: all 0.2s ease;
+  font-size: 14px;
+  padding: 0;
+}
+
+.stp-drawer-close-btn:hover {
+  background: #d1fae5;
+  color: #047857;
+  border-color: #059669;
+}
+
+/* ==========================================================================
+   PERFECT RESPONSIVE DESIGN SUITE (Staff Panel)
+   ========================================================================== */
+@media (max-width: 992px) {
+  .stp-container {
+    overflow-x: clip !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+  .stp-sidebar {
+    display: none !important;
+  }
+  .stp-main {
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    padding: 14px 12px calc(85px + env(safe-area-inset-bottom, 16px)) !important;
+  }
+  .stp-mobile-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .ant-drawer-left .ant-drawer-content-wrapper {
+    max-width: 85vw !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .stp-member-card,
+  .stp-cand-card {
+    padding: 12px 12px !important;
+    border-radius: 14px !important;
+  }
+  .stp-member-card-body {
+    gap: 10px !important;
+  }
+  .stp-member-avatar {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 16px !important;
+    border-radius: 12px !important;
+  }
+  .stp-member-name {
+    font-size: 14px !important;
+  }
+  .stp-member-chips {
+    gap: 4px !important;
+  }
+  .stp-chip {
+    font-size: 11px !important;
+    padding: 2px 6px !important;
+  }
+  .stp-member-card-actions {
+    justify-content: stretch !important;
+  }
+  .stp-member-card-actions > * {
+    flex: 1 1 auto !important;
+    text-align: center !important;
+    font-size: 12px !important;
+  }
+  .stp-biodata-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  .stp-biodata-profile-head {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .stp-biodata-profile-head .stp-biodata-info-wrap {
+    text-align: center !important;
+  }
+  .stp-biodata-profile-head .stp-biodata-info-wrap > div {
+    justify-content: center !important;
+  }
+  .stp-biodata-footer {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .stp-biodata-footer > * {
+    width: 100% !important;
+  }
+  .stp-biodata-footer > div {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 8px !important;
+  }
+  .stp-biodata-footer button {
+    width: 100% !important;
+    height: 40px !important;
+  }
+  .stp-card {
+    padding: 14px 12px !important;
+    border-radius: 16px !important;
+  }
+  .stp-card-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+  .stp-action-grid,
+  .stp-detail-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .stp-top-stats {
+    width: 100% !important;
+  }
+  .stp-top-stat-card {
+    flex: 1 1 calc(50% - 6px) !important;
+    min-width: 130px !important;
+    padding: 10px 12px !important;
+  }
+  .stp-filter-row {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .stp-filter-row > * {
+    width: 100% !important;
+  }
+  .stp-table-card,
+  .stp-table-wrap {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    width: 100% !important;
+  }
+  .ant-modal {
+    max-width: calc(100vw - 16px) !important;
+    margin: 8px auto !important;
+    top: 10px !important;
+  }
+  .ant-modal .ant-modal-content {
+    padding: 16px 14px !important;
+    border-radius: 18px !important;
+    max-height: calc(100vh - 20px) !important;
+    overflow-y: auto !important;
+  }
+  .ant-modal-footer {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .ant-modal-footer button {
+    width: 100% !important;
+    height: 42px !important;
+    margin: 0 !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .stp-top-stat-card {
+    flex: 1 1 100% !important;
+  }
+}

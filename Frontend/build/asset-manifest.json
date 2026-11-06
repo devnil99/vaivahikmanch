@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2a36a298.css",
+    "main.js": "/static/js/main.6b787aab.js",
+    "static/js/453.24b7fe63.chunk.js": "/static/js/453.24b7fe63.chunk.js",
+    "static/media/wedding_couple_hero.jpg": "/static/media/wedding_couple_hero.30d293c43ddfae7dcb3e.jpg",
+    "static/media/wedding_couple_card.jpg": "/static/media/wedding_couple_card.c88a2061f3bf40dba7b8.jpg",
+    "index.html": "/index.html",
+    "main.2a36a298.css.map": "/static/css/main.2a36a298.css.map",
+    "main.6b787aab.js.map": "/static/js/main.6b787aab.js.map",
+    "453.24b7fe63.chunk.js.map": "/static/js/453.24b7fe63.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2a36a298.css",
+    "static/js/main.6b787aab.js"
+  ]
+}

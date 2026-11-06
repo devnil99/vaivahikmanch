@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --primary-red: #b80d3b;
+  --primary-crimson: #8f0d2c;
+  --primary-deep: #63051b;
+  --primary-ruby: #a00c30;
+  
+  --rose-pink: #e63968;
+  --bright-pink: #ff4d79;
+  --blush-pink: #ff758f;
+  --soft-pink: #ffb3c1;
+  --light-pink: #ffe5ec;
+  --pale-pink-bg: #fff0f3;
+  --rose-creme-bg: #fff8f9;
+
+  --accent-gold: #d4af37;
+  --accent-gold-light: #ffd700;
+  --accent-gold-dark: #aa820a;
+
+  --text-primary: #2d151e;
+  --text-secondary: #5e4751;
+  --text-muted: #8a707b;
+
+  --border-pink: rgba(230, 57, 104, 0.22);
+  --border-gold: rgba(212, 175, 55, 0.35);
+
+  --shadow-pink: 0 10px 30px rgba(184, 13, 59, 0.12);
+  --shadow-pink-lg: 0 18px 45px rgba(184, 13, 59, 0.22);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  overflow-x: clip;
+  max-width: 100vw;
+  width: 100%;
+  position: relative;
+  -webkit-text-size-adjust: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--rose-creme-bg);
+  color: var(--text-primary);
+}
+
+/* Custom Matrimonial Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fde8ed;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff4d79 0%, #b80d3b 100%);
+  border-radius: 6px;
+  border: 2px solid #fde8ed;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #e63968 0%, #8f0d2c 100%);
+}
+
+/* Custom Text Selection */
+::selection {
+  background: #b80d3b;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: #b80d3b;
+  color: #ffffff;
+}
+
+/* Global Animations */
+@keyframes heartPulse {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.18);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.12);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+@keyframes softFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmerGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 77, 121, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 77, 121, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(255, 77, 121, 0.3);
+  }
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', Georgia, serif;
+}
+
+.font-playfair {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.heart-pulse {
+  animation: heartPulse 2.4s infinite ease-in-out;
+  display: inline-block;
+}
+
+.soft-float {
+  animation: softFloat 4s ease-in-out infinite;
+}

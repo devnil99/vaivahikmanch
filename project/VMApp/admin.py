@@ -1,0 +1,49 @@
+from django.contrib import admin
+from .models import (
+    User,
+    User_Data,
+    User_Transactions,
+    Wish_List,
+    Staff_Data,
+    Staff_Transactions,
+    Staff_Commission,
+    Service_Data,
+    Service_Transactions,
+    Services,
+    Service_Charge,
+    States_With_Districts,
+    NearDist,
+    Plans,
+    Success_Story,
+    Profession,
+    Religion,
+    Caste,
+    Language,
+    Color,
+    Help,
+    PhoneOTP,
+)
+
+# Register your models here.
+admin.site.register(User)
+admin.site.register(User_Data)
+admin.site.register(User_Transactions)
+admin.site.register(Wish_List)
+admin.site.register(Staff_Data)
+admin.site.register(Staff_Transactions)
+admin.site.register(Staff_Commission)
+admin.site.register(Service_Data)
+admin.site.register(Service_Transactions)
+admin.site.register(Services)
+admin.site.register(Service_Charge)
+admin.site.register(States_With_Districts)
+admin.site.register(NearDist)
+admin.site.register(Plans)
+admin.site.register(Success_Story)
+admin.site.register(Profession)
+admin.site.register(Religion)
+admin.site.register(Caste)
+admin.site.register(Language)
+admin.site.register(Color)
+admin.site.register(Help)
+admin.site.register(PhoneOTP)

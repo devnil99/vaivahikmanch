@@ -1,0 +1,104 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div id="content-main">
+
+  <!-- Welcome Hero Banner -->
+  <div class="admin-hero-banner">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <h2>नमस्ते, {{ request.user.first_name|default:request.user.username }}! 👋</h2>
+        <p>Welcome to the Vaivaheek Manch Administrative Operations Suite. Monitor user registrations, matrimony profiles, revenue, and customer support.</p>
+      </div>
+      <div style="text-align: right;">
+        <span style="display: inline-block; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); padding: 8px 16px; border-radius: 9999px; font-size: 0.82rem; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.2);">
+          🟢 System Status: Active
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI Metric Cards Grid -->
+  <div class="kpi-grid">
+    <!-- Total Users -->
+    <div class="kpi-card users">
+      <div class="kpi-card-header">
+        <span class="kpi-title">Total Users</span>
+        <div class="kpi-icon-wrap">👥</div>
+      </div>
+      <div class="kpi-number">{{ total_users|default:"0" }}</div>
+      <div class="kpi-subtext">Registered platform accounts</div>
+    </div>
+
+    <!-- Matrimony Profiles -->
+    <div class="kpi-card profiles">
+      <div class="kpi-card-header">
+        <span class="kpi-title">Matrimony Profiles</span>
+        <div class="kpi-icon-wrap">💍</div>
+      </div>
+      <div class="kpi-number">{{ total_matrimonial_profiles|default:"0" }}</div>
+      <div class="kpi-subtext"><strong style="color: #059669;">{{ active_profiles|default:"0" }}</strong> active profiles published</div>
+    </div>
+
+    <!-- Revenue -->
+    <div class="kpi-card revenue">
+      <div class="kpi-card-header">
+        <span class="kpi-title">Total Revenue</span>
+        <div class="kpi-icon-wrap">💳</div>
+      </div>
+      <div class="kpi-number">₹{{ total_revenue|default:"0" }}</div>
+      <div class="kpi-subtext">Verified recharge & plan purchases</div>
+    </div>
+
+    <!-- Wedding Services -->
+    <div class="kpi-card services">
+      <div class="kpi-card-header">
+        <span class="kpi-title">Wedding Vendors</span>
+        <div class="kpi-icon-wrap">🎪</div>
+      </div>
+      <div class="kpi-number">{{ total_services|default:"0" }}</div>
+      <div class="kpi-subtext">Active vendor & service listings</div>
+    </div>
+
+    <!-- Support Tickets -->
+    <div class="kpi-card support">
+      <div class="kpi-card-header">
+        <span class="kpi-title">Help & Support</span>
+        <div class="kpi-icon-wrap">💬</div>
+      </div>
+      <div class="kpi-number">{{ pending_tickets|default:"0" }}</div>
+      <div class="kpi-subtext">Inquiries awaiting response</div>
+    </div>
+  </div>
+
+  <!-- Quick Action Shortcuts -->
+  <div style="margin-bottom: 14px; font-size: 0.86rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.05em;">
+    ⚡ Quick Operations
+  </div>
+  <div class="quick-actions-bar">
+    <a href="{% url 'admin:VMApp_user_data_add' %}" class="action-pill-btn primary">
+      <span>➕</span> Add Matrimonial Profile
+    </a>
+    <a href="{% url 'admin:VMApp_user_add' %}" class="action-pill-btn">
+      <span>👤</span> Add User Account
+    </a>
+    <a href="{% url 'admin:VMApp_user_transactions_changelist' %}" class="action-pill-btn">
+      <span>💳</span> View Transactions
+    </a>
+    <a href="{% url 'admin:VMApp_plans_changelist' %}" class="action-pill-btn">
+      <span>📦</span> Membership Plans
+    </a>
+    <a href="{% url 'admin:VMApp_service_user_changelist' %}" class="action-pill-btn">
+      <span>🤝</span> Vendor Directory
+    </a>
+    <a href="{% url 'admin:VMApp_help_changelist' %}" class="action-pill-btn">
+      <span>🎫</span> Help Tickets
+    </a>
+  </div>
+
+  <!-- Render Standard App Modules -->
+  {% include "admin/app_list.html" with app_list=app_list %}
+
+</div>
+{% endblock %}
