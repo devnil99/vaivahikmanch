@@ -102,14 +102,10 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-FRONTEND_DIR = BASE_DIR.parent / 'Frontend'
-FRONTEND_BUILD_DIR = FRONTEND_DIR / 'build'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            FRONTEND_BUILD_DIR,
             BASE_DIR / 'templates',
         ],
         'APP_DIRS': True,
@@ -192,11 +188,11 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
-    FRONTEND_BUILD_DIR / 'static',
-] if (FRONTEND_BUILD_DIR / 'static').exists() else []
+    BASE_DIR / 'static',
+]
 
-# Serve root assets (favicon.ico, manifest.json, robots.txt) directly via WhiteNoise
-WHITENOISE_ROOT = FRONTEND_BUILD_DIR if FRONTEND_BUILD_DIR.exists() else None
+# Serve root assets (favicon.ico, manifest.json, robots.txt, etc.) directly via WhiteNoise
+WHITENOISE_ROOT = BASE_DIR / 'static'
 WHITENOISE_MANIFEST_STRICT = False
 
 # =============================================================

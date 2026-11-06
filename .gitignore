@@ -23,21 +23,13 @@ Frontend/.env.development.local
 Frontend/.env.test.local
 Frontend/.env.production.local
 
-# Node & Frontend dependencies
-node_modules/
-Frontend/node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Frontend source directory excluded from production deployment
+Frontend/
 
 # Browser testing / temporary profiles
 edge_desktop_test/
 temp_edge_profile/
 scratch_*.*
-
-# Keep production build for Django integration
-!Frontend/build
-!Frontend/build/**
 
 # IDE & OS
 .vscode/
