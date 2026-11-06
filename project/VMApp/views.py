@@ -2344,9 +2344,10 @@ class ServiceDataAPIView(APIView):
         target_service_id = service_id or (str(request.user.pk) if (is_service_user and scope in ["service_panel", "owner", None, ""]) else None)
 
         # Enforce business rules in backend:
-        # 1. Admin/Staff requesting all records: return all (active, deactivated, pending, expired)
-        if is_admin_or_staff and scope in ["all", "admin", "global", "true"]:
-            pass
+        # 1. Admin/Staff requesting records: return all (active, deactivated, pending, expired)
+        if is_admin_or_staff and not (active_only in ["true", "1"]):
+            if target_service_id:
+                objects = objects.filter(Service_id=target_service_id)
         # 2. Specific vendor lookup by Admin/Staff, or Service User querying their own services:
         # Service users must see their deactivated, pending approval, and expired services in their Service Panel
         elif target_service_id and (is_admin_or_staff or (is_authenticated and str(request.user.pk) == str(target_service_id))):
@@ -2705,7 +2706,21 @@ class StatesWithDistrictsAPIView(APIView):
             obj = get_object_or_404(States_With_Districts, pk=pk)
             return Response(StatesWithDistrictsSerializer(obj).data)
 
-        objects = States_With_Districts.objects.exclude(Active=False)
+        scope = request.query_params.get("scope") or request.query_params.get("all")
+        user_role = str(getattr(request.user, "Role", "") or "").lower()
+        is_admin = (
+            getattr(request.user, "is_authenticated", False)
+            and (
+                getattr(request.user, "is_superuser", False)
+                or getattr(request.user, "is_staff", False)
+                or user_role in ["admin", "superadmin"]
+            )
+        )
+        if is_admin or scope in ["all", "admin", "global", "true"]:
+            objects = States_With_Districts.objects.all().order_by("State")
+        else:
+            objects = States_With_Districts.objects.filter(Active=True).order_by("State")
+
         return Response(
             StatesWithDistrictsSerializer(objects, many=True).data
         )
@@ -2767,7 +2782,22 @@ class NearDistAPIView(APIView):
 
         district = request.query_params.get("district")
         state = request.query_params.get("state")
-        objects = NearDist.objects.all()
+        scope = request.query_params.get("scope") or request.query_params.get("all")
+        user_role = str(getattr(request.user, "Role", "") or "").lower()
+        is_admin = (
+            getattr(request.user, "is_authenticated", False)
+            and (
+                getattr(request.user, "is_superuser", False)
+                or getattr(request.user, "is_staff", False)
+                or user_role in ["admin", "superadmin"]
+            )
+        )
+        if is_admin or scope in ["all", "admin", "global", "true"]:
+            objects = NearDist.objects.all()
+        else:
+            active_states = States_With_Districts.objects.filter(Active=True).values_list("State", flat=True)
+            objects = NearDist.objects.filter(Active=True).filter(State__in=active_states)
+
         if state and state.strip():
             objects = objects.filter(State__iexact=state.strip())
         if district and district.strip():
@@ -2844,7 +2874,7 @@ class PlansAPIView(APIView):
         if is_admin or scope in ["all", "admin", "global", "true"] or str(include_inactive).lower() in ["true", "1"]:
             objects = Plans.objects.all().order_by("Amount")
         else:
-            objects = Plans.objects.exclude(Active=False).order_by("Amount")
+            objects = Plans.objects.filter(Active=True).order_by("Amount")
 
         return Response(PlansSerializer(objects, many=True).data)
 
@@ -2892,14 +2922,32 @@ class PlansAPIView(APIView):
 
 class SuccessStoryAPIView(APIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
     def get(self, request, pk=None):
         if pk is not None:
             obj = get_object_or_404(Success_Story, pk=pk)
             return Response(SuccessStorySerializer(obj).data)
 
-        objects = Success_Story.objects.all()
+        scope = request.query_params.get("scope") or request.query_params.get("all")
+        user_role = str(getattr(request.user, "Role", "") or "").lower()
+        is_admin = (
+            getattr(request.user, "is_authenticated", False)
+            and (
+                getattr(request.user, "is_superuser", False)
+                or getattr(request.user, "is_staff", False)
+                or user_role in ["admin", "superadmin"]
+            )
+        )
+        if is_admin or scope in ["all", "admin", "global", "true"]:
+            objects = Success_Story.objects.all().order_by("-Success_id")
+        else:
+            objects = Success_Story.objects.filter(Active=True).order_by("-Success_id")
+
         return Response(SuccessStorySerializer(objects, many=True).data)
 
     def post(self, request):
@@ -2956,7 +3004,21 @@ class ProfessionAPIView(APIView):
             obj = get_object_or_404(Profession, pk=pk)
             return Response(ProfessionSerializer(obj).data)
 
-        objects = Profession.objects.all()
+        scope = request.query_params.get("scope") or request.query_params.get("all")
+        user_role = str(getattr(request.user, "Role", "") or "").lower()
+        is_admin = (
+            getattr(request.user, "is_authenticated", False)
+            and (
+                getattr(request.user, "is_superuser", False)
+                or getattr(request.user, "is_staff", False)
+                or user_role in ["admin", "superadmin"]
+            )
+        )
+        if is_admin or scope in ["all", "admin", "global", "true"]:
+            objects = Profession.objects.all().order_by("Profession_Name")
+        else:
+            objects = Profession.objects.filter(Active=True).order_by("Profession_Name")
+
         return Response(ProfessionSerializer(objects, many=True).data)
 
     def post(self, request):
@@ -3013,7 +3075,21 @@ class ReligionAPIView(APIView):
             obj = get_object_or_404(Religion, pk=pk)
             return Response(ReligionSerializer(obj).data)
 
-        objects = Religion.objects.all()
+        scope = request.query_params.get("scope") or request.query_params.get("all")
+        user_role = str(getattr(request.user, "Role", "") or "").lower()
+        is_admin = (
+            getattr(request.user, "is_authenticated", False)
+            and (
+                getattr(request.user, "is_superuser", False)
+                or getattr(request.user, "is_staff", False)
+                or user_role in ["admin", "superadmin"]
+            )
+        )
+        if is_admin or scope in ["all", "admin", "global", "true"]:
+            objects = Religion.objects.all().order_by("Religion_Name")
+        else:
+            objects = Religion.objects.filter(Active=True).order_by("Religion_Name")
+
         return Response(ReligionSerializer(objects, many=True).data)
 
     def post(self, request):
@@ -3072,9 +3148,27 @@ class CasteAPIView(APIView):
             return Response(CasteSerializer(obj).data)
 
         state_param = request.query_params.get("state") or request.query_params.get("State")
-        objects = Caste.objects.exclude(Active=False)
-        if state_param:
-            objects = objects.filter(State__iexact=state_param.strip())
+        scope = request.query_params.get("scope") or request.query_params.get("all")
+        user_role = str(getattr(request.user, "Role", "") or "").lower()
+        is_admin = (
+            getattr(request.user, "is_authenticated", False)
+            and (
+                getattr(request.user, "is_superuser", False)
+                or getattr(request.user, "is_staff", False)
+                or user_role in ["admin", "superadmin"]
+            )
+        )
+        if is_admin or scope in ["all", "admin", "global", "true"]:
+            objects = Caste.objects.all().order_by("State")
+            if state_param:
+                objects = objects.filter(State__iexact=state_param.strip())
+        else:
+            # Strictly active castes AND strictly active states for public / homepage:
+            active_states = States_With_Districts.objects.filter(Active=True).values_list("State", flat=True)
+            objects = Caste.objects.filter(Active=True).filter(State__in=active_states).order_by("State")
+            if state_param:
+                objects = objects.filter(State__iexact=state_param.strip())
+
         return Response(CasteSerializer(objects, many=True).data)
 
     def post(self, request):
@@ -3132,7 +3226,21 @@ class LanguageAPIView(APIView):
             obj = get_object_or_404(Language, pk=pk)
             return Response(LanguageSerializer(obj).data)
 
-        objects = Language.objects.all()
+        scope = request.query_params.get("scope") or request.query_params.get("all")
+        user_role = str(getattr(request.user, "Role", "") or "").lower()
+        is_admin = (
+            getattr(request.user, "is_authenticated", False)
+            and (
+                getattr(request.user, "is_superuser", False)
+                or getattr(request.user, "is_staff", False)
+                or user_role in ["admin", "superadmin"]
+            )
+        )
+        if is_admin or scope in ["all", "admin", "global", "true"]:
+            objects = Language.objects.all().order_by("Language")
+        else:
+            objects = Language.objects.filter(Active=True).order_by("Language")
+
         return Response(LanguageSerializer(objects, many=True).data)
 
     def post(self, request):
@@ -3190,7 +3298,21 @@ class ColorAPIView(APIView):
             obj = get_object_or_404(Color, pk=pk)
             return Response(ColorSerializer(obj).data)
 
-        objects = Color.objects.filter(Active=True)
+        scope = request.query_params.get("scope") or request.query_params.get("all")
+        user_role = str(getattr(request.user, "Role", "") or "").lower()
+        is_admin = (
+            getattr(request.user, "is_authenticated", False)
+            and (
+                getattr(request.user, "is_superuser", False)
+                or getattr(request.user, "is_staff", False)
+                or user_role in ["admin", "superadmin"]
+            )
+        )
+        if is_admin or scope in ["all", "admin", "global", "true"]:
+            objects = Color.objects.all().order_by("Color")
+        else:
+            objects = Color.objects.filter(Active=True).order_by("Color")
+
         return Response(ColorSerializer(objects, many=True).data)
 
     def post(self, request):
