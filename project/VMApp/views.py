@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.db import transaction, IntegrityError
@@ -160,6 +161,7 @@ class SendOTPAPIView(APIView):
 class VerifyOTPAPIView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def post(self, request):
         phone = str(request.data.get("Contact", "")).strip()
@@ -263,6 +265,14 @@ class VerifyOTPAPIView(APIView):
                 caste_val = str(request.data.get("Caste") or request.data.get("caste") or "").strip()
                 religion_val = str(request.data.get("Religion") or request.data.get("religion") or "").strip()
                 gender_val = str(request.data.get("Gender") or request.data.get("gender") or "").strip()
+                profile_pic = request.FILES.get("Profile_Pic") or request.FILES.get("pic") or request.FILES.get("profile_pic")
+
+                # Profile picture compulsory for matrimonial user registration
+                if assigned_role == "user" and not profile_pic:
+                    return Response(
+                        {"error": "Profile picture is compulsory for registration. Please upload your photo."},
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
 
                 # Create user with properly hashed password
                 user = User(
@@ -300,6 +310,8 @@ class VerifyOTPAPIView(APIView):
                     user_data_defaults["Religion"] = religion_val
                 if gender_val:
                     user_data_defaults["Gender"] = gender_val
+                if profile_pic:
+                    user_data_defaults["Profile_Pic"] = profile_pic
 
                 user_data, _ = User_Data.objects.get_or_create(
                     User_id=user,
@@ -313,6 +325,8 @@ class VerifyOTPAPIView(APIView):
                     user_data.Full_Name = full_name_val
                 if gender_val and not user_data.Gender:
                     user_data.Gender = gender_val
+                if profile_pic:
+                    user_data.Profile_Pic = profile_pic
                 user_data.save()
 
                 # Delete OTP record after successful registration
@@ -1025,6 +1039,9 @@ class UserDataAPIView(APIView):
             "nearest_districts": "Nearestdist",
             "accept_profiles": "Accept_Profiles",
             "accept_castes": "Accept_Profiles",
+            "about_me": "About_Me",
+            "about": "About_Me",
+            "custom_details": "About_Me",
             "valid_upto": "Valid_Upto",
             "validity": "Valid_Upto",
             "expiry_date": "Valid_Upto",

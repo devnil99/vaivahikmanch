@@ -363,25 +363,25 @@ class User_Data(models.Model):
         max_length=3,
         null=True,
         blank=True,
-        choices=[(str(i), str(i)) for i in range(1, 11)]
+        choices=[(str(i), str(i)) for i in range(0, 11)]
     )
     Brothers_marrige = models.CharField(
         max_length=3,
         null=True,
         blank=True,
-        choices=[(str(i), str(i)) for i in range(1, 11)]
+        choices=[(str(i), str(i)) for i in range(0, 11)]
     )
     Sisters = models.CharField(
         max_length=3,
         null=True,
         blank=True,
-        choices=[(str(i), str(i)) for i in range(1, 11)]
+        choices=[(str(i), str(i)) for i in range(0, 11)]
     )
     Sisters_marrige = models.CharField(
         max_length=3,
         null=True,
         blank=True,
-        choices=[(str(i), str(i)) for i in range(1, 11)]
+        choices=[(str(i), str(i)) for i in range(0, 11)]
     )
     Mother_tongue = models.CharField(max_length=100, null=True, blank=True)
     Height = models.DecimalField(
@@ -395,6 +395,11 @@ class User_Data(models.Model):
         null=True,
         blank=True,
         verbose_name="Complexion (रंग / वर्ण)"
+    )
+    About_Me = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name="About Me / Custom Details (मेरे बारे में)"
     )
     # Refer = models.IntegerField(null=True, blank=True)
     Create_date = models.DateField(auto_now=True)
