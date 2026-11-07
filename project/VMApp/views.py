@@ -258,6 +258,12 @@ class VerifyOTPAPIView(APIView):
                 valid_roles = ["user", "service", "admin", "superadmin", "staff"]
                 assigned_role = role_param if role_param in valid_roles else "user"
 
+                # Extract optional registration profile fields
+                full_name_val = str(request.data.get("Full_Name") or request.data.get("full_name") or request.data.get("firstname") or "").strip()
+                caste_val = str(request.data.get("Caste") or request.data.get("caste") or "").strip()
+                religion_val = str(request.data.get("Religion") or request.data.get("religion") or "").strip()
+                gender_val = str(request.data.get("Gender") or request.data.get("gender") or "").strip()
+
                 # Create user with properly hashed password
                 user = User(
                     Contact=phone,
@@ -265,6 +271,8 @@ class VerifyOTPAPIView(APIView):
                     Role=assigned_role,
                     Refered_By=ref_num,
                 )
+                if full_name_val:
+                    user.first_name = full_name_val[:30]
                 if assigned_role in ["admin", "superadmin"]:
                     user.is_staff = True
                     user.is_superuser = True
@@ -279,6 +287,33 @@ class VerifyOTPAPIView(APIView):
                         {"error": "This mobile number is already registered. Please login."},
                         status=status.HTTP_400_BAD_REQUEST,
                     )
+
+                # Initialize or update User_Data with profile details
+                user_data_defaults = {
+                    "WP_Contact": phone,
+                }
+                if full_name_val:
+                    user_data_defaults["Full_Name"] = full_name_val
+                if caste_val:
+                    user_data_defaults["Caste"] = caste_val
+                if religion_val:
+                    user_data_defaults["Religion"] = religion_val
+                if gender_val:
+                    user_data_defaults["Gender"] = gender_val
+
+                user_data, _ = User_Data.objects.get_or_create(
+                    User_id=user,
+                    defaults=user_data_defaults
+                )
+                if caste_val and not user_data.Caste:
+                    user_data.Caste = caste_val
+                if religion_val and not user_data.Religion:
+                    user_data.Religion = religion_val
+                if full_name_val and not user_data.Full_Name:
+                    user_data.Full_Name = full_name_val
+                if gender_val and not user_data.Gender:
+                    user_data.Gender = gender_val
+                user_data.save()
 
                 # Delete OTP record after successful registration
                 otp_record.delete()
@@ -1209,9 +1244,21 @@ class UserDataAPIView(APIView):
 
         norm_data = self._normalize_user_data(request.data)
         target_uid = norm_data.get("User_id")
+        user_role = str(getattr(request.user, "Role", "") or "").lower()
+        is_admin = (
+            getattr(request.user, "is_authenticated", False)
+            and (
+                getattr(request.user, "is_superuser", False)
+                or getattr(request.user, "is_staff", False)
+                or user_role in ["admin", "superadmin"]
+            )
+        )
         if target_uid:
             existing = User_Data.objects.filter(User_id=target_uid).first()
             if existing:
+                # Restrict caste modification: Once filled, non-admins cannot change it
+                if not is_admin and existing.Caste and str(existing.Caste).strip():
+                    norm_data["Caste"] = existing.Caste
                 serializer = UserDataSerializer(existing, data=norm_data, partial=True)
                 if serializer.is_valid():
                     serializer.save()
@@ -1332,6 +1379,9 @@ class UserDataAPIView(APIView):
             self._apply_user_account_updates(obj.User_id, request.data)
 
         norm_data = self._normalize_user_data(request.data, existing_obj=obj)
+        # Restrict caste modification: Once filled, non-admins cannot change it
+        if obj and not is_admin and obj.Caste and str(obj.Caste).strip():
+            norm_data["Caste"] = obj.Caste
         if not obj:
             # If profile does not exist yet for this user, create it
             if "User_id" not in norm_data:
@@ -1404,6 +1454,9 @@ class UserDataAPIView(APIView):
             self._apply_user_account_updates(obj.User_id, request.data)
 
         norm_data = self._normalize_user_data(request.data, existing_obj=obj)
+        # Restrict caste modification: Once filled, non-admins cannot change it
+        if obj and not is_admin and obj.Caste and str(obj.Caste).strip():
+            norm_data["Caste"] = obj.Caste
         serializer = UserDataSerializer(
             obj, data=norm_data, partial=True
         )
