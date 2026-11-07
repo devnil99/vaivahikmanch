@@ -13,7 +13,7 @@ from django.db.models import Q
 from .models import *
 from .serializers import *
 from .utils import send_otp_via_f2sms, get_default_admin_reference_code, resolve_valid_referral_code
-from .email_notifications import notify_partner_request_async
+from .email_notifications import notify_partner_request_async, notify_partner_acceptance_async
 from django.conf import settings
 from django.utils import timezone
 from datetime import timedelta, datetime
@@ -1988,6 +1988,10 @@ class WishListResponseAPIView(APIView):
                     accepted_profiles.append(requester_id)
                     partner_data.Accept_Profiles = accepted_profiles
                     partner_data.save(update_fields=["Accept_Profiles"])
+                try:
+                    notify_partner_acceptance_async(approver_user=request.user, requester_user=obj.User_id)
+                except Exception:
+                    pass
             elif new_status == Wish_List.STATUS_REJECTED:
                 # Disapprove / Revoke: remove both users from each other's Accept_Profiles atomically
                 for uid, other_id in [(u1_id, u2_id), (u2_id, u1_id)]:
