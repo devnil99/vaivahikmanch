@@ -28,7 +28,7 @@ def _build_connection_request_html(recipient_name, sender_name, sender_caste, se
     <!-- Royal Brand Header -->
     <tr>
       <td style="background: linear-gradient(135deg, #881337 0%, #b80d3b 50%, #991b1b 100%); padding: 34px 24px; text-align: center; color: #ffffff;">
-        <div style="font-size: 38px; margin-bottom: 6px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));">💍</div>
+        <div style="font-size: 32px; margin-bottom: 6px; color: #fde047;">⚜️</div>
         <h1 style="margin: 0; font-size: 26px; font-weight: 900; letter-spacing: -0.4px; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
           वैवाहिक मंच
         </h1>
@@ -193,7 +193,7 @@ def send_connection_request_email(recipient_email, recipient_name, sender_name, 
             return
 
         portal_url = _get_portal_url("/UserPanel?tab=requests")
-        subject = f"💍 New Connection Request from {sender_name} | वैवाहिक मंच"
+        subject = f"✨ New Connection Request from {sender_name} | वैवाहिक मंच"
 
         text_content = (
             f"Namaste {recipient_name},\n\n"
