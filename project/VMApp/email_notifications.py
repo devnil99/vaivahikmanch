@@ -225,7 +225,7 @@ def send_connection_request_email(recipient_email, recipient_name, sender_name, 
         from_email = getattr(
             settings,
             "DEFAULT_FROM_EMAIL",
-            "Vaivaheek Manch <nilkamalshriwas91@gmail.com>"
+            "Vaivaheek Manch <vaivahikmanch.in@gmail.com>"
         )
 
         msg = EmailMultiAlternatives(
@@ -273,7 +273,7 @@ def send_connection_accepted_email(recipient_email, recipient_name, approver_nam
         from_email = getattr(
             settings,
             "DEFAULT_FROM_EMAIL",
-            "Vaivaheek Manch <nilkamalshriwas91@gmail.com>"
+            "Vaivaheek Manch <vaivahikmanch.in@gmail.com>"
         )
 
         msg = EmailMultiAlternatives(
