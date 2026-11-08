@@ -260,19 +260,12 @@ class VerifyOTPAPIView(APIView):
                 valid_roles = ["user", "service", "admin", "superadmin", "staff"]
                 assigned_role = role_param if role_param in valid_roles else "user"
 
-                # Extract optional registration profile fields
+                # Optional registration profile fields (profile completion happens in portal)
                 full_name_val = str(request.data.get("Full_Name") or request.data.get("full_name") or request.data.get("firstname") or "").strip()
                 caste_val = str(request.data.get("Caste") or request.data.get("caste") or "").strip()
                 religion_val = str(request.data.get("Religion") or request.data.get("religion") or "").strip()
                 gender_val = str(request.data.get("Gender") or request.data.get("gender") or "").strip()
                 profile_pic = request.FILES.get("Profile_Pic") or request.FILES.get("pic") or request.FILES.get("profile_pic")
-
-                # Profile picture compulsory for matrimonial user registration
-                if assigned_role == "user" and not profile_pic:
-                    return Response(
-                        {"error": "Profile picture is compulsory for registration. Please upload your photo."},
-                        status=status.HTTP_400_BAD_REQUEST,
-                    )
 
                 # Create user with properly hashed password
                 user = User(
